@@ -52,7 +52,6 @@ public class CustomThreadPoolExecutor implements Executor {
         this.rejectionPolicy = rejectionPolicy;
         this.loadBalancer = loadBalancer;
 
-        // Initialize queues
         this.queues = new ArrayList<>();
         for (int i = 0; i < corePoolSize; i++) {
             queues.add(new TaskQueue(queueSize, "queue-" + i));
@@ -64,7 +63,6 @@ public class CustomThreadPoolExecutor implements Executor {
         if (command == null) throw new NullPointerException();
         if (isShutdown) throw new RejectedExecutionException("Pool is shutting down");
 
-        // Try to add to queue first
         TaskQueue queue = loadBalancer.selectQueue(queues);
         if (queue.offer(command)) {
             if (workerCount.get() < minSpareThreads) {
@@ -73,13 +71,11 @@ public class CustomThreadPoolExecutor implements Executor {
             return;
         }
 
-        // Try to create new thread
         if (workerCount.get() < maxPoolSize) {
             addWorker(command);
             return;
         }
 
-        // Apply rejection policy
         rejectionPolicy.rejectedExecution(command, this);
     }
 
