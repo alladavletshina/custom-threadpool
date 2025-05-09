@@ -33,7 +33,7 @@ public class CustomThreadPoolExecutor implements Executor {
                                     ThreadFactory threadFactory,
                                     RejectionPolicy rejectionPolicy,
                                     LoadBalancer loadBalancer) {
-        // Validation
+
         if (corePoolSize < 0 || maxPoolSize <= 0 || maxPoolSize < corePoolSize)
             throw new IllegalArgumentException("Invalid pool size");
         if (keepAliveTime < 0)
@@ -119,7 +119,6 @@ public class CustomThreadPoolExecutor implements Executor {
         }
     }
 
-    // Getters
     public boolean isShutdown() { return isShutdown; }
     public int getPoolSize() { return workerCount.get(); }
     public int getActiveCount() { return (int) workers.stream().filter(Worker::isRunning).count(); }
