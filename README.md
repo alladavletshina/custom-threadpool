@@ -80,7 +80,7 @@
 ## Демонстрация
 
 Пример использования:
-```java
+
 CustomThreadPoolExecutor executor = new CustomThreadPoolExecutor(
     2, 4, 5, TimeUnit.SECONDS,
     10, 1, new CustomThreadFactory(),
@@ -93,3 +93,16 @@ executor.execute(() -> {
 
 executor.shutdown();
 
+## Запуск проекта
+1. Клонировать репозиторий
+
+2. Собрать проект: mvn clean install
+
+3. Запустить демо: java -cp target/classes org.example.demo.Main
+
+4. Логи будут записаны в logs/threadpool.log
+
+Контакты автора
+Давлетшина Алла
+📞 +7 (915) 088-76-21
+📧 atdavletshina@gmail.com
